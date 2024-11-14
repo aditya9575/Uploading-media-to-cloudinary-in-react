@@ -1,0 +1,34 @@
+go to cloudinary -> create an account -> go to settings section 
+-> upload section -> add upload preset -> name your preset -> enable unsigned uploading -> save this preset -> copy the preset name 
+
+
+as these images are stored in form of binary data so we can send them directly to our node.js instead we need to use form data here 
+-> 
+//this FormData is a constructor function here so we need to follow this syntax of "new" keyword
+//then we need to append our file to this data using .append on data this append will be 
+//taking a key value pair so "file", fileToUpload
+//[this key name of file in the key value pair is fixed as cloudinary expects us to send this so that cloudinary can understand what 
+have you sent ]
+//then we need to send two more things which are upload preset name and cloud name again in key value pair format
+(copy the cloud name from api keys , copy the preset name from the settings -> upload preset)
+
+const data = new FormData()
+data.append("file" , fileThatWeWantToBeUploaded)
+data.append("upload_preset" , copyPasteTheNameOfThePreset_WeJustMade)
+data.append("cloud_name" , copyPaste_Your_CloudName ) 
+
+Now to fetch anything from cloudinary api end point -> Go to cloudinary api base url from there copy the needed url 
+
+url to upload -> https://api.cloudinary.com/v1_1/{cloud_name}/image/upload
+
+Now run a post method on this url and then pass this data to it as the upload argument you can use axios or fetch 
+
+and store the response in a variable with await method 
+const uploadedMediaUrl = await res.json
+
+Then destructure the returned url from it by extracting url from the returned object -> uploadedMediaUrl.url
+
+Now you can finally send this url to the backend or store it somewhere to finally display or use the image 
+
+You will find the uploaded image in the media library category of cloudinary 
+
